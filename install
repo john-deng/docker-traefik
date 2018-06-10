@@ -1,0 +1,77 @@
+#!/bin/bash
+###############################################################################
+# Traefik with HTTPS
+# Author: John Deng <john.deng@outlook.com>
+###############################################################################
+
+source "colors"
+source "input"
+
+TF_HOST=
+TF_EMAIL=
+###############################################################################
+input TF_HOST "Domain" "${TF_HOST}" "example.com"
+input TF_EMAIL "Email" "${TF_EMAIL}" "your.name@example.com"
+prompt_yesorno "Use ${TF_HOST} as your site domain? [yes/no]"
+if (( $? == 1 )); then
+    echo "Canceled."
+    exit 1
+fi
+
+###############################################################################
+
+if [ ! -f example/.env ] || [ "$1" == "-r" ]; then
+    cat > example/.env  <<-EOF
+EXAMPLE_HOST=${TF_HOST}
+EXAMPLE_DOMAIN=${TF_EMAIL}
+EOF
+fi
+
+###############################################################################
+
+if [ ! -f traefik.toml ] || [ "$1" == "-r" ]; then
+    #echo "Ensure file .env"
+    cat > traefik.toml <<-EOF
+debug = false
+
+logLevel = "ERROR"
+defaultEntryPoints = ["https","http"]
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+    [entryPoints.http.redirect]
+    entryPoint = "https"
+  [entryPoints.https]
+  address = ":443"
+    [entryPoints.https.tls]
+
+[retry]
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "${TF_HOST}"
+watch = true
+exposedByDefault = false
+
+[acme]
+email = "${TF_EMAIL}"
+storage = "acme.json"
+entryPoint = "https"
+onHostRule = true
+  [acme.httpChallenge]
+  entryPoint = "http"
+EOF
+
+fi
+
+if [ ! -f ./acme.json ]; then
+    touch acme.json
+fi
+
+docker network inspect web
+if (( $? != 0 )); then
+    docker network create web
+fi
+
+echo -e "${DARKGREEN}Done ${ENDCOLOR}"

@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  whoami:
+    image: emilevauge/whoami # A container that exposes an API to show its IP address
+    container_name: whoami
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.backend=example"
+      - "traefik.frontend.rule=Host:${EXAMPLE_HOST}"
+
+networks:
+  web:
+    external: true
+

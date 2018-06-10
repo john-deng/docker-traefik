@@ -1,0 +1,47 @@
+#!/bin/bash
+###############################################################################
+# input
+# Author: John Deng <john.deng@outlook.com>
+###############################################################################
+
+source "colors"
+###############################################################################
+function input() {
+  arg_name=$2
+  arg_value=$3
+  default_value=$4
+  if [ "${arg_value}" == "" ]; then
+    def_val=""
+    if (( $(echo "${arg_name}" | grep "password" | wc -l) != 0)); then
+      def_val="[******]"
+    elif [ "${default_value}" != "" ]; then
+      def_val="[${default_value}]"
+    fi
+    read -p "$(echo -e ${DARKGREEN}[INPUT] ${DARKTEAL}${arg_name} ${DARKBLUE}${def_val}${ENDCOLOR}): " result < /dev/tty
+  else
+    result=${arg_value}  
+  fi
+  if [ "${result}" == "" ]; then
+    result=${default_value}
+  fi
+
+  eval $1="\${result}"
+}
+###############################################################################
+
+function prompt_yesorno ()
+{
+    echo -e "${YELLOW}"
+    while true; do
+        read -p "$1 " yn < /dev/tty
+        case $yn in
+            [Yy]* ) return 0;;
+            [Nn]* ) return 1;;
+            * ) echo "Please answer yes or no.";;
+        esac
+    done
+    echo -e "${ENDCOLOR}"
+}
+###############################################################################
+
+
