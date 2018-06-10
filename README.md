@@ -41,48 +41,10 @@ Use example.com as your site domain? [yes/no] y
 
 ```
 
+After traefik is installed, then run docker-compose
+
 ```bash
 docker-compose up -d
 ```
 
-wordpress show up and running ...
-
-```bash
-
-Creating dockerwordpress_db_1 ... done
-Creating dockerwordpress_wordpress_1 ... done
-
-```
-
-### Show docker-compose status
-
-```bash
-docker-compose ps
-```
-
-here is the status
-
-```bash
-           Name                          Command               State           Ports
---------------------------------------------------------------------------------------------
-dockerwordpress_db_1          docker-entrypoint.sh mysqld      Up      3306/tcp
-dockerwordpress_wordpress_1   docker-entrypoint.sh apach ...   Up      0.0.0.0:32823->80/tcp
-
-```
-
-### Shutdown wordpress
-
-If you want to shutdown wordpress, just type docker-compose down
-
-```bash
-docker-compose down
-```
-
-```bash
-Stopping dockerwordpress_wordpress_1 ... done
-Stopping dockerwordpress_db_1        ... done
-Removing dockerwordpress_wordpress_1 ... done
-Removing dockerwordpress_db_1        ... done
-Network web is external, skipping
-
-```
+traefik show up and running ...
