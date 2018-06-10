@@ -9,7 +9,7 @@ Bring up Traefik site is really easy by using install All you have to do is clon
 ### Clone the repo
 
 ```bash
-git clone https://github.com/john-deng/docker-wordpress.git
+git clone https://github.com/john-deng/docker-traefik.git
 ```
 
 ### Change directory
@@ -38,6 +38,8 @@ wordpress will prompt below input requests, please input your site parameters or
 [INPUT] Email [your.name@example.com]:
 
 Use example.com as your site domain? [yes/no] y
+
+Done
 
 ```
 
