@@ -68,6 +68,7 @@ fi
 if [ ! -f ./acme.json ]; then
     touch acme.json
 fi
+chmod 600 acme.json
 
 docker network inspect web
 if (( $? != 0 )); then
