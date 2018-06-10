@@ -4,7 +4,7 @@ Træfik is a modern HTTP reverse proxy and load balancer that makes deploying mi
 
 ## Getting started
 
-Bring up Traefik site is really easy by using install All you have to do is clone the source and then run the script wordpress
+Bring up Traefik site is really easy by using install All you have to do is clone the source and then run the script traefik
 
 ### Clone the repo
 
@@ -15,7 +15,7 @@ git clone https://github.com/john-deng/docker-traefik.git
 ### Change directory
 
 ```bash
-cd docker-wordpress
+cd docker-traefik
 ```
 
 ### Type command ./install for the first time
@@ -30,7 +30,7 @@ cd docker-wordpress
 ./install -r
 ```
 
-wordpress will prompt below input requests, please input your site parameters or just type enter if your want to user the default settings
+traefik will prompt below input requests, please input your site parameters or just type enter if your want to user the default settings
 
 ```bash
 
